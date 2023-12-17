@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,25 @@
   to {
     transform: rotate(360deg);
   }
+} */
+ /* Assuming you have a class named "box" */
+.box { /* Adjust based on your needs, using a fixed value */
+  width: 300px;
+  border-radius: 5px;
+  padding: 30px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+}
+
+/* Assuming you have a class named "main" */
+.main {
+  background-color: rgb(48, 24, 44);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
