@@ -1,34 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
-import  q from './dataset.js'
 import React,{useState,useEffect} from 'react';
 
+const App=()=>{
+const [quote,setQuote]=useState('');
+const [getAuthor,setAuthor]=useState('');
 
-
-function App(){
-const [index,setIndex]=useState('');
-const handleClick=()=>{
-  return setIndex(Math.floor(Math.random()*q.quote.length));
+const [bg, setBg]=useState('#4b2b8f');
+const changeColor=()=>{
+  let opt='0123456789abcdef';
+  let colorCh ='#';
+  for(let i=0;i<6;i++){
+    let index=Math.floor(Math.random()*16);
+    colorCh+=opt[index];
+  }
+  setBg(colorCh);
 }
-let quoteToDisplay=q.quote[index];
-    let authorToDisplay=q.author[index]
-  return(
-    
-      <div class='main'>
-        <div class='box'>
-          {index === '' && (
-            <>
-              {q.quote[0]} <br /> -{q.author[0]}
-            </>
-          )}
-          {index !== '' && (
-            <>
-              {quoteToDisplay} <br /> -{authorToDisplay}
-            </>
-          )}
-          <button onClick={handleClick}>New Quote</button>
+
+
+const getQuote = async () => {
+  try {
+    const response = await fetch('https://api.quotable.io/random');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch quote. Status`);
+    }
+    const data = await response.json();
+
+    setQuote(data.content);
+    setAuthor(data.author);
+  } catch (error) {
+    console.error('Error fetching quote:', error.message);
+  }
+};
+
+ useEffect(()=>{getQuote()},[]);
+
+ const handleButtonClick = () => {
+  getQuote();
+  changeColor();
+};
+
+  return( 
+      <div className='main' style={{backgroundColor:bg}}>
+        <div className='box'>
+        <div className='quotecss'> {quote}</div>
+          <div className='authorcss'>-{getAuthor}</div>
+          <button className='buttoncss' onClick={handleButtonClick}>New Quote</button>
         </div>
-      </div>
+        </div>
     );
   }
 
