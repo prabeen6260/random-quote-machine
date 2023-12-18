@@ -6,15 +6,15 @@ const [quote,setQuote]=useState('');
 const [getAuthor,setAuthor]=useState('');
 
 const [bg, setBg]=useState('#4b2b8f');
-const changeColor=()=>{
-  let opt='0123456789abcdef';
-  let colorCh ='#';
-  for(let i=0;i<6;i++){
-    let index=Math.floor(Math.random()*16);
-    colorCh+=opt[index];
-  }
-  setBg(colorCh);
-}
+const changeColor = () => {
+  const getRandomHex = () => {
+    return Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+  };
+
+  const randomColor = `#${getRandomHex()}${getRandomHex()}${getRandomHex()}`;
+  setBg(randomColor);
+};
+
 
 
 const getQuote = async () => {
